@@ -5,6 +5,7 @@
   "repository": "https://github.com/epadz/ClassNameify",
   "description": "Convert ClassName prop from string to classNames. Also adds the import if needed",
   "version": "0.1.1",
+  "icon": "classnameify.png",
   "engines": {
     "vscode": "^1.45.0"
   },
