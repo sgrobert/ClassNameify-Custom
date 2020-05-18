@@ -2,8 +2,10 @@
 
 All notable changes to the "classnameify" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [0.1.1] - 2020-05-18
 
-## [Unreleased]
+- Added some more error handling
+
+## [0.1.0] - 2020-05-18
 
 - Initial release

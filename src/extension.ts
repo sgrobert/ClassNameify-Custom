@@ -26,7 +26,7 @@ export function activate(context: ExtensionContext) {
           addImportIfNeeded(editBuilder);
         });
       } catch (e) {
-        window.showErrorMessage(`Error: ${e.text}`);
+        window.showErrorMessage(`Error: ${e.message}`);
       }
     },
   );
@@ -66,6 +66,9 @@ function getPropPosition(): Range {
 function getNewClassNameProp(propTextRange: Range): string {
   const propText = getDocument().getText(propTextRange);
   const className = propText.split('"')[1];
+  if (!className) {
+    throw new Error('could not parse class prop');
+  }
   return `className={classNames('${className}')}`;
 }
 
@@ -89,12 +92,15 @@ function getLastImportLine(): number {
   ) {
     lastImportLine++;
   }
+  if (lastImportLine >= getDocument().lineCount) {
+    throw new Error('could not find location to add import');
+  }
   return lastImportLine;
 }
 
 function addImportIfNeeded(editBuilder: TextEditorEdit): void {
   const lastImportLine = getLastImportLine();
-  if (lastImportLine < getDocument().lineCount && needsClassNamesImport()) {
+  if (needsClassNamesImport()) {
     const importPosition = new Position(lastImportLine, 0);
     editBuilder.insert(
       importPosition,
