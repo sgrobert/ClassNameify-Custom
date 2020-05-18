@@ -6,10 +6,15 @@
   "description": "Convert ClassName prop from string to classNames. Also adds the import if needed",
   "version": "0.1.2",
   "icon": "classnameify.png",
+  "galleryBanner": {
+    "theme": "dark"
+  },
   "engines": {
     "vscode": "^1.45.0"
   },
   "categories": [
+    "Formatters",
+    "Snippets",
     "Other"
   ],
   "activationEvents": [
