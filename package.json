@@ -4,7 +4,7 @@
   "publisher": "epadzensky",
   "repository": "https://github.com/epadz/ClassNameify",
   "description": "Convert ClassName prop from string to classNames. Also adds the import if needed",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "icon": "classnameify.png",
   "galleryBanner": {
     "theme": "dark"

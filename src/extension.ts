@@ -56,8 +56,12 @@ function getPropPosition(): Range {
   if (!propString) {
     throw new Error('could not find className prop');
   }
+  const selectionIndex = getSelection().start.character;
   const startIndex = lineText.indexOf(propString);
   const endIndex = startIndex + propString.length;
+  if (selectionIndex < startIndex || selectionIndex > endIndex) {
+    throw new Error('this is not a classnames prop');
+  }
   const startPosition = new Position(lineNumber, startIndex);
   const endPosition = new Position(lineNumber, endIndex);
   return new Range(startPosition, endPosition);
@@ -104,7 +108,7 @@ function addImportIfNeeded(editBuilder: TextEditorEdit): void {
     const importPosition = new Position(lastImportLine, 0);
     editBuilder.insert(
       importPosition,
-      "import classNames from 'classNames';\n",
+      "import classNames from 'classnames';\n",
     );
   }
 }
