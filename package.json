@@ -1,9 +1,9 @@
 {
-  "name": "Classnameify",
-  "displayName": "Classnameify",
+  "name": "Classnameify-Custom",
+  "displayName": "Classnameify-Custom",
   "publisher": "epadzensky",
-  "repository": "https://github.com/epadz/ClassNameify",
-  "description": "Convert ClassName prop from string to classNames. Also adds the import if needed",
+  "repository": "https://github.com/sgrobert/ClassNameify-Custom",
+  "description": "Convert ClassName prop from string to customized `classNames` / `clsx` / `<custom-prefix>`, with selectable preference to use `single-quotes` / `double-quotes`. Also adds the import if needed",
   "version": "0.1.4",
   "icon": "classnameify.png",
   "galleryBanner": {
