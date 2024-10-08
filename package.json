@@ -1,8 +1,8 @@
 {
-  "name": "Classnameify-Custom",
-  "displayName": "Classnameify-Custom",
-  "publisher": "epadzensky",
-  "repository": "https://github.com/sgrobert/ClassNameify-Custom",
+  "name": "clsx-custom",
+  "displayName": "clsx-custom",
+  "publisher": "sgrobert",
+  "repository": "https://github.com/sgrobert/clsx-custom",
   "description": "Convert ClassName prop from string to customized `classNames` / `clsx` / `<custom-prefix>`, with selectable preference to use `single-quotes` / `double-quotes`. Also adds the import if needed",
   "version": "0.1.4",
   "icon": "classnameify.png",
@@ -10,7 +10,7 @@
     "theme": "dark"
   },
   "engines": {
-    "vscode": "^1.45.0"
+    "vscode": "^1.94.0"
   },
   "categories": [
     "Formatters",
@@ -24,26 +24,42 @@
   "contributes": {
     "commands": [
       {
-        "command": "extension.classnameify",
-        "title": "Classname-ify"
+        "command": "extension.clsx-custom",
+        "title": "clsx-custom"
       }
     ],
     "menus": {
       "editor/context": [
         {
           "when": "resourceExtname == .tsx || resourceExtname == .jsx",
-          "command": "extension.classnameify",
+          "command": "extension.clsx-custom",
           "group": "7_modification"
         }
       ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "My Extension Settings",
+      "properties": {
+        "myExtension.someSetting": {
+          "type": "string",
+          "default": "default value",
+          "description": "A custom string setting for my extension"
+        },
+        "myExtension.enableFeature": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable a feature"
+        }
+      }
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
+    "vscode:prepublish": "pnpm run compile",
     "compile": "tsc -p ./",
     "lint": "eslint src --ext ts",
     "watch": "tsc -watch -p ./",
-    "pretest": "yarn run compile && yarn run lint",
+    "pretest": "pnpm run compile && pnpm run lint",
     "test": "node ./out/test/runTest.js"
   },
   "prettier": {

@@ -15,7 +15,7 @@ const classNamesImportRegex = /import \w+ from ['"]classnames['"](;)?/gi;
 
 export function activate(context: ExtensionContext) {
   const classNameify = commands.registerCommand(
-    'extension.classnameify',
+    'extension.clsx-custom',
     () => {
       try {
         checkConditions();
@@ -25,8 +25,11 @@ export function activate(context: ExtensionContext) {
           editBuilder.replace(propPosition, newPropText);
           addImportIfNeeded(editBuilder);
         });
-      } catch (e) {
-        window.showErrorMessage(`Error: ${e.message}`);
+      }
+      catch (error: any) {
+        const errorMessage = `Error: ${error.message}`;
+        console.error(errorMessage);
+        window.showErrorMessage(errorMessage);
       }
     },
   );
@@ -73,7 +76,7 @@ function getNewClassNameProp(propTextRange: Range): string {
   if (!className) {
     throw new Error('could not parse class prop');
   }
-  return `className={classNames('${className}')}`;
+  return `className={cn("${className}")}`;
 }
 
 function getCurrentLineNumber(): number {
