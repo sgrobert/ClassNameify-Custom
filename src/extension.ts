@@ -8,14 +8,14 @@ import {
   TextDocument,
   Selection,
   TextEditorEdit,
-} from 'vscode';
+} from "vscode";
 
 const classNameStringRegex = /class(name)?="([^"]+)"/i;
 const classNamesImportRegex = /import \w+ from ['"]classnames['"](;)?/gi;
 
 export function activate(context: ExtensionContext) {
-  const classNameify = commands.registerCommand(
-    'extension.clsx-custom',
+  const clsxCustom = commands.registerCommand(
+    "extension.clsx-custom",
     () => {
       try {
         checkConditions();
@@ -34,21 +34,21 @@ export function activate(context: ExtensionContext) {
     },
   );
 
-  context.subscriptions.push(classNameify);
+  context.subscriptions.push(clsxCustom);
 }
 
 function checkConditions(): void {
   const editor = window.activeTextEditor;
   if (!editor) {
-    throw new Error('Must have an active editor open');
+    throw new Error("Must have an active editor open");
   }
   const { document } = editor;
   if (
-    document.languageId !== 'typescriptreact' &&
-    document.languageId !== 'javascriptreact'
+    document.languageId !== "typescriptreact" &&
+    document.languageId !== "javascriptreact"
   ) {
-    window.showErrorMessage('Must be jsx or tsx to use classnameify');
-    throw new Error('Must be jsx or tsx to use classnameify');
+    window.showErrorMessage("Must be jsx or tsx to use clsx-custom");
+    throw new Error("Must be jsx or tsx to use clsx-custom");
   }
 }
 
@@ -57,13 +57,13 @@ function getPropPosition(): Range {
   const lineText = getCurrentLineText();
   const propString = (lineText.match(classNameStringRegex) ?? [])[0];
   if (!propString) {
-    throw new Error('could not find className prop');
+    throw new Error("could not find className prop");
   }
   const selectionIndex = getSelection().start.character;
   const startIndex = lineText.indexOf(propString);
   const endIndex = startIndex + propString.length;
   if (selectionIndex < startIndex || selectionIndex > endIndex) {
-    throw new Error('this is not a classnames prop');
+    throw new Error("this is not a classnames prop");
   }
   const startPosition = new Position(lineNumber, startIndex);
   const endPosition = new Position(lineNumber, endIndex);
@@ -72,9 +72,9 @@ function getPropPosition(): Range {
 
 function getNewClassNameProp(propTextRange: Range): string {
   const propText = getDocument().getText(propTextRange);
-  const className = propText.split('"')[1];
+  const className = propText.split(`"`)[1];
   if (!className) {
-    throw new Error('could not parse class prop');
+    throw new Error("could not parse class prop");
   }
   return `className={cn("${className}")}`;
 }
@@ -95,12 +95,12 @@ function getLastImportLine(): number {
   let lastImportLine = 0;
   while (
     lastImportLine < getDocument().lineCount &&
-    getDocument().lineAt(lastImportLine).text.startsWith('import')
+    getDocument().lineAt(lastImportLine).text.startsWith("import")
   ) {
     lastImportLine++;
   }
   if (lastImportLine >= getDocument().lineCount) {
-    throw new Error('could not find location to add import');
+    throw new Error("could not find location to add import");
   }
   return lastImportLine;
 }
@@ -111,7 +111,7 @@ function addImportIfNeeded(editBuilder: TextEditorEdit): void {
     const importPosition = new Position(lastImportLine, 0);
     editBuilder.insert(
       importPosition,
-      "import classNames from 'classnames';\n",
+      `import classNames from "classnames";\n`,
     );
   }
 }
